@@ -1,16 +1,29 @@
 import { useParams } from "react-router-dom";
+import { type ViewIdeaRouteParams } from "../../lib/routes";
+import { trpc } from "../../lib/trpc";
+import css from "./index.module.scss";
+
 
 export const ViewIdeaPage = () => {
-  const { ideaId } = useParams() as { ideaId: string };
+  const { ideaId } = useParams() as ViewIdeaRouteParams;
+
+  const { data, error, isLoading, isFetching, isError } = trpc.getIdea.useQuery({ideaId: Number(ideaId)});
+  if (isLoading || isFetching) {
+    return <span>Loading...</span>;
+  }
+  if (isError) {
+    return <span>Error: {error.message}</span>;
+  }
+
+  if (!data?.idea) {
+    return <span>Idea not found</span>;
+  }
+
   return (
     <div>
-      <h1>Idea ID {ideaId}</h1>
-      <p>This is the description of Idea {ideaId}.</p>
-      <div>
-        <p>Text paragraph 1 idea {ideaId} ...</p>
-        <p>Text paragraph 2 idea {ideaId} ...</p>
-        <p>Text paragraph 3 idea {ideaId} ...</p>
-      </div>
+      <h1 className={css.title}>{data.idea.name}</h1>
+      <p className={css.description}>{data.idea.description}</p>
+      <div className={css.text} dangerouslySetInnerHTML={{ __html: data.idea.text }} />
     </div>
   );
 };

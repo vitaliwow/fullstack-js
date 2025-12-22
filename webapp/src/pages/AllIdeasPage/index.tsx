@@ -1,10 +1,11 @@
 import { trpc } from "../../lib/trpc";
 import { Link } from "react-router-dom";
-import { getIdeaRoute } from "../../lib/routes";
+import css from "./index.module.scss";
+
 
 export const AllIdeasPage = () => {
-  const { data, error, isLoading, isError } = trpc.getIdeas.useQuery();
-  if (isLoading) {
+  const { data, error, isLoading, isFetching, isError } = trpc.getIdeas.useQuery();
+  if (isLoading || isFetching) {
     return <span>Loading...</span>;
   }
   if (isError) {
@@ -13,13 +14,17 @@ export const AllIdeasPage = () => {
 
   return (
     <div>
-      <h1>All Ideas</h1>
-      {data?.ideas.map((idea) => (
-        <div key={idea.id_}>
-          <h2><Link to={getIdeaRoute(idea.id_)}>{idea.name}</Link></h2>
-          <p>{idea.description}</p>
-        </div>
-      ))}
+      <h1 className={css.title}>All Ideas</h1>
+      <div className={css.ideas}>
+        {data?.ideas.map((idea) => (
+          <div className={css.idea} key={idea.id_}>
+            <h2 className={css.ideaName}>
+              <Link className={css.ideaLink} to={`ideas/${idea.id_}`}>{idea.name}</Link>
+            </h2>
+            <p className={css.ideaDescription}>{idea.description}</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
