@@ -1,8 +1,5 @@
 import { initTRPC } from "@trpc/server";
 
-const x: string = "sdfsf";
-if (Math.random() + 2) console.log(x)
-
 const ideas = [
     { id_: 1, name: "Idea 1", description: "Description" },
     { id_: 2, name: "Idea 2", description: "Description" },
