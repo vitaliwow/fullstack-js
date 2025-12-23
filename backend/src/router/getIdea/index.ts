@@ -6,7 +6,7 @@ import { trpc } from "../../lib/trpc"
 
 export const getIdeaTRpcRoute = trpc.procedure.input(
     z.object({
-        ideaId: z.number(),
+        ideaId: z.string(),
     }),
 ).query(({ input }) => {
     const idea = ideas.find((idea) => idea.id_ === input.ideaId);
