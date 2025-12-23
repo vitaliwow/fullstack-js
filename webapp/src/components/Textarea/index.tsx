@@ -10,6 +10,8 @@ export const Textarea = <T extends Record<string, string>>({
   formik: FormikProps<T>;
 }) => {
   const value = formik.values[name];
+  const error = formik.errors[name] as string | undefined;
+
   return (
     <div style={{ marginBottom: 10 }}>
       <label htmlFor={name}>{label}:</label>
@@ -22,6 +24,7 @@ export const Textarea = <T extends Record<string, string>>({
         }}
         value={value}
       />
+      {error && <div style={{ color: "red" }}>{error}</div>}
     </div>
   );
 };

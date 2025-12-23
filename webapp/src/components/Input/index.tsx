@@ -9,11 +9,15 @@ export const Input = <T extends Record<string, string>>({
   label: string;
   formik: FormikProps<T>;
 }) => {
+  const value = formik.values[name];
+  const error = formik.errors[name] as string | undefined;
+
   return (
     <div style={{ marginBottom: 10 }}>
       <label htmlFor={name}>{label}:</label>
       <br />
       <input
+        value={value}
         type="text"
         name={name}
         id={name}
@@ -21,6 +25,7 @@ export const Input = <T extends Record<string, string>>({
           void formik.setFieldValue(name, e.target.value);
         }}
       />
+      {error && <div style={{ color: "red" }}>{error}</div>}
     </div>
   );
 };
