@@ -1,14 +1,15 @@
+import type { FormikProps } from "formik";
+
 export const Textarea = <T extends Record<string, string>>({
   name,
   label,
-  state,
-  setState,
+  formik,
 }: {
   name: keyof T & string;
   label: string;
-  state: T;
-  setState: React.Dispatch<React.SetStateAction<T>>;
+  formik: FormikProps<T>;
 }) => {
+  const value = formik.values[name];
   return (
     <div style={{ marginBottom: 10 }}>
       <label htmlFor={name}>{label}:</label>
@@ -17,12 +18,9 @@ export const Textarea = <T extends Record<string, string>>({
         name={name}
         id={name}
         onChange={(e) => {
-          setState({
-            ...state,
-            [name]: e.target.value,
-          } as T);
+          void formik.setFieldValue(name, e.target.value);
         }}
-        value={state[name] ?? ""}
+        value={value}
       />
     </div>
   );
