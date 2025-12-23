@@ -10,8 +10,7 @@ export const getAllIdeasRoute = () => "/";
 
 export const viewIdeaRouteParams = getRouteParams({ ideaId: true });
 export type ViewIdeaRouteParams = typeof viewIdeaRouteParams;
-export const getViewIdeaRoute = ({ ideaId }: { ideaId: ViewIdeaRouteParams }) => `/ideas/${ideaId}`;
+export const getViewIdeaRoutePattern = () => "/ideas/:ideaId";
+export const getViewIdeaRoute = ({ ideaId }: { ideaId: string | number }) => `/ideas/${ideaId}`;
 
-/* export const viewIdeaRouteParams = {ideaId: ":ideaId"};
-export type ViewIdeaRouteParams = { ideaId: string | number };
-export const getViewIdeaRoute = ({ ideaId }: { ideaId: ViewIdeaRouteParams }) => `/ideas/${ideaId}`; */
+export const getNewIdeaRoute = () => "/ideas/new";

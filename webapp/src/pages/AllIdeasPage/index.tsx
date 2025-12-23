@@ -1,6 +1,7 @@
 import { trpc } from "../../lib/trpc";
 import { Link } from "react-router-dom";
 import css from "./index.module.scss";
+import { Segment } from "../../components/Segment";
 
 
 export const AllIdeasPage = () => {
@@ -13,18 +14,18 @@ export const AllIdeasPage = () => {
   }
 
   return (
-    <div>
-      <h1 className={css.title}>All Ideas</h1>
+    <Segment title="All Ideas">
       <div className={css.ideas}>
         {data?.ideas.map((idea) => (
-          <div className={css.idea} key={idea.id_}>
-            <h2 className={css.ideaName}>
-              <Link className={css.ideaLink} to={`ideas/${idea.id_}`}>{idea.name}</Link>
-            </h2>
-            <p className={css.ideaDescription}>{idea.description}</p>
+          <div key={idea.id_} className={css.idea}>
+            <Segment
+              size={2}
+              title={<Link className={css.ideaLink} to={`ideas/${idea.id_}`}>{idea.name}</Link>}>
+              description={idea.description}
+            </Segment>
           </div>
         ))}
       </div>
-    </div>
+    </Segment> 
   );
 };

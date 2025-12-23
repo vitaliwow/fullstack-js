@@ -1,0 +1,23 @@
+@import "../../styles/_vars";
+@import "../../styles/_mixins";
+
+$breakpoint: "<=900px";
+
+.segment {
+  h1.title {
+    @include h1;
+  }
+
+  h2.title {
+    @include h2;
+  }
+
+  .description {
+    font-size: 18px;
+    margin-bottom: 5px;
+  }
+
+  .content {
+    margin-top: 12px;
+  }
+}
