@@ -11,6 +11,7 @@ export const Input = <T extends Record<string, string>>({
 }) => {
   const value = formik.values[name];
   const error = formik.errors[name] as string | undefined;
+  const touched = formik.touched[name];
 
   return (
     <div style={{ marginBottom: 10 }}>
@@ -24,8 +25,9 @@ export const Input = <T extends Record<string, string>>({
         onChange={(e) => {
           void formik.setFieldValue(name, e.target.value);
         }}
+        onBlur={() => void formik.setFieldTouched(name)}
       />
-      {error && <div style={{ color: "red" }}>{error}</div>}
+      {!!touched && !!error && <div style={{ color: "red" }}>{error}</div>}
     </div>
   );
 };

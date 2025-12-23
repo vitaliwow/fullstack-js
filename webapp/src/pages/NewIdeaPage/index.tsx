@@ -38,7 +38,7 @@ export const NewIdeaPage = () => {
     },
   });
 
-  console.log(formik);
+  console.log(formik.submitCount);
 
   return (
     <Segment title="New Idea">
@@ -52,7 +52,7 @@ export const NewIdeaPage = () => {
         <Input name="id_" label="Identification" formik={formik} />
         <Input name="description" label="Description" formik={formik} />
         <Textarea name="text" label="Text" formik={formik} />
-        {!formik.isValid && (
+        {!formik.isValid && !!formik.submitCount && (
           <div style={{ color: "red" }}>Some fields are invalid</div>
         )}
         <button type="submit">Create Idea</button>

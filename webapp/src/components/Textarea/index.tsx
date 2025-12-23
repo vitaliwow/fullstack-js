@@ -10,6 +10,7 @@ export const Textarea = <T extends Record<string, string>>({
   formik: FormikProps<T>;
 }) => {
   const value = formik.values[name];
+  const touched = formik.touched[name];
   const error = formik.errors[name] as string | undefined;
 
   return (
@@ -23,8 +24,9 @@ export const Textarea = <T extends Record<string, string>>({
           void formik.setFieldValue(name, e.target.value);
         }}
         value={value}
+        onBlur={() => void formik.setFieldTouched(name)}
       />
-      {error && <div style={{ color: "red" }}>{error}</div>}
+      {!!touched && !!error && <div style={{ color: "red" }}>{error}</div>}
     </div>
   );
 };
