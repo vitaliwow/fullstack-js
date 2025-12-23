@@ -8,7 +8,7 @@ import { Segment } from "../../components/Segment";
 export const ViewIdeaPage = () => {
   const { ideaId } = useParams() as ViewIdeaRouteParams;
 
-  const { data, error, isLoading, isFetching, isError } = trpc.getIdea.useQuery({ideaId: Number(ideaId)});
+  const { data, error, isLoading, isFetching, isError } = trpc.getIdea.useQuery({ideaId: String(ideaId)});
   if (isLoading || isFetching) {
     return <span>Loading...</span>;
   }
