@@ -1,23 +1,38 @@
 import type { FormikProps } from "formik";
+import scss from "./index.module.scss";
+
+import cn from 'classnames'
 
 export const Input = <T extends Record<string, string>>({
   name,
   label,
   formik,
+  maxWidth,
 }: {
   name: keyof T & string;
   label: string;
   formik: FormikProps<T>;
+  maxWidth?: number;
 }) => {
   const value = formik.values[name];
   const error = formik.errors[name] as string | undefined;
   const touched = formik.touched[name];
+  const disabled = formik.isSubmitting
+  const invalid = !!touched && !!error
 
   return (
-    <div style={{ marginBottom: 10 }}>
-      <label htmlFor={name}>{label}:</label>
-      <br />
+    <div className={ cn({[scss.field]: true, [scss.disabled]: disabled}) }>
+      <label className={scss.label} htmlFor={name}>
+        {label}:
+      </label>
       <input
+        className={
+            cn({
+                [scss.input]: true,
+                [scss.invalid]: invalid
+            })
+        }
+        style={{maxWidth}}
         value={value}
         type="text"
         name={name}
@@ -28,7 +43,7 @@ export const Input = <T extends Record<string, string>>({
         onBlur={() => void formik.setFieldTouched(name)}
         disabled={formik.isSubmitting}
       />
-      {!!touched && !!error && <div style={{ color: "red" }}>{error}</div>}
+      {invalid && <div className={scss.error}>{error}</div>}
     </div>
   );
 };
