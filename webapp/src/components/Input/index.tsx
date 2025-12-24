@@ -26,6 +26,7 @@ export const Input = <T extends Record<string, string>>({
           void formik.setFieldValue(name, e.target.value);
         }}
         onBlur={() => void formik.setFieldTouched(name)}
+        disabled={formik.isSubmitting}
       />
       {!!touched && !!error && <div style={{ color: "red" }}>{error}</div>}
     </div>

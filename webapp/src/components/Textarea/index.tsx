@@ -25,6 +25,7 @@ export const Textarea = <T extends Record<string, string>>({
         }}
         value={value}
         onBlur={() => void formik.setFieldTouched(name)}
+        disabled={formik.isSubmitting}
       />
       {!!touched && !!error && <div style={{ color: "red" }}>{error}</div>}
     </div>
